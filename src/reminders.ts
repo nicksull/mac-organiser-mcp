@@ -12,8 +12,15 @@ function handle(req) {
 
   function visible(name) { return !allowed || allowed.indexOf(name) !== -1; }
 
+  // Without this, a misspelt allowlist looks exactly like having no reminders.
+  // The error names only the configured lists, never the ones that exist.
   function visibleLists() {
-    return app.lists().filter(function (l) { return visible(l.name()); });
+    var lists = app.lists().filter(function (l) { return visible(l.name()); });
+    if (allowed && !lists.length) {
+      throw new Error('REMINDERS_LISTS (' + allowed.join(', ') + ') matches none of your Reminders lists. ' +
+        'Names must match exactly, including capitalisation.');
+    }
+    return lists;
   }
 
   function findList(name) {

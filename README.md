@@ -161,6 +161,11 @@ All three use the same `mcpServers` shape:
 }
 ```
 
+> [!IMPORTANT]
+> - Use the full path to `dist/index.js`. JSON configs don't expand `~` or placeholders.
+> - GUI apps don't load your shell `PATH`. If Node comes from nvm, fnm or asdf, set `"command"` to the output of `which node` (e.g. `/Users/you/.nvm/versions/node/v22.x.x/bin/node`).
+> - Claude Desktop only reads its config at launch, so quit it fully (⌘Q) and reopen after editing.
+
 </details>
 
 <details>
