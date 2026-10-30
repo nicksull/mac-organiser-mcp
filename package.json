@@ -1,12 +1,14 @@
 {
   "name": "mac-organiser-mcp",
+  "mcpName": "io.github.nicksull/mac-organiser-mcp",
   "version": "0.2.0",
   "description": "Privacy-focused MCP server for Apple Reminders, Calendar and Notes",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "test:live": "node test/live.mjs"
+    "test:live": "node test/live.mjs",
+    "prepublishOnly": "npm run build"
   },
   "author": "Nick Sullivan",
   "license": "MIT",
@@ -22,11 +24,25 @@
   "bin": {
     "mac-organiser-mcp": "dist/index.js"
   },
-  "private": true,
   "engines": {
     "node": ">=20"
   },
   "files": [
     "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicksull/mac-organiser-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "apple-reminders",
+    "apple-calendar",
+    "apple-notes",
+    "macos"
+  ],
+  "os": [
+    "darwin"
   ]
 }
