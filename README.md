@@ -101,16 +101,25 @@ Dates are ISO 8601: `2026-10-29`, `2026-10-29T14:00` (your local time) or `2026-
 
 ### Install
 
+Nothing to install: your MCP client runs it from npm with `npx -y mac-organiser-mcp`, as in the configs below.
+
+<details>
+<summary>Run from source instead</summary>
+
 ```bash
-git clone <this repo> ~/repos/mac-organiser-mcp
+git clone https://github.com/nicksull/mac-organiser-mcp ~/repos/mac-organiser-mcp
 cd ~/repos/mac-organiser-mcp
 npm ci
 npm run build
 ```
 
+Then use `node` and the full path to `dist/index.js` in place of `npx` and `-y mac-organiser-mcp`.
+
+</details>
+
 ### Works with
 
-It's a standard [Model Context Protocol](https://modelcontextprotocol.io) server that runs locally over stdio, so it isn't tied to any one assistant. Every client needs the same three things: the command `node`, the path to `dist/index.js`, and your settings as environment variables.
+It's a standard [Model Context Protocol](https://modelcontextprotocol.io) server that runs locally over stdio, so it isn't tied to any one assistant. Every client needs the same three things: the command `npx`, the arguments `-y mac-organiser-mcp`, and your settings as environment variables.
 
 | Client | Where the config goes |
 | --- | --- |
@@ -134,7 +143,7 @@ claude mcp add -s user mac-organiser \
   -e REMINDERS_LISTS="Reminders,Groceries" \
   -e CALENDAR_CALENDARS="Work,Home" \
   -e NOTES_FOLDERS="AI" \
-  -- node ~/repos/mac-organiser-mcp/dist/index.js
+  -- npx -y mac-organiser-mcp
 ```
 
 </details>
@@ -148,8 +157,8 @@ All three use the same `mcpServers` shape:
 {
   "mcpServers": {
     "mac-organiser": {
-      "command": "node",
-      "args": ["/Users/you/repos/mac-organiser-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "mac-organiser-mcp"],
       "env": {
         "MAC_ORGANISER_APPS": "reminders,calendar,notes",
         "REMINDERS_LISTS": "Reminders,Groceries",
@@ -162,8 +171,7 @@ All three use the same `mcpServers` shape:
 ```
 
 > [!IMPORTANT]
-> - Use the full path to `dist/index.js`. JSON configs don't expand `~` or placeholders.
-> - GUI apps don't load your shell `PATH`. If Node comes from nvm, fnm or asdf, set `"command"` to the output of `which node` (e.g. `/Users/you/.nvm/versions/node/v22.x.x/bin/node`).
+> - GUI apps don't load your shell `PATH`. If Node comes from nvm, fnm or asdf, set `"command"` to the output of `which npx` (e.g. `/Users/you/.nvm/versions/node/v22.x.x/bin/npx`).
 > - Claude Desktop only reads its config at launch, so quit it fully (⌘Q) and reopen after editing.
 
 </details>
@@ -178,8 +186,8 @@ VS Code uses `servers` and an explicit `type`:
   "servers": {
     "mac-organiser": {
       "type": "stdio",
-      "command": "node",
-      "args": ["/Users/you/repos/mac-organiser-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "mac-organiser-mcp"],
       "env": {
         "MAC_ORGANISER_APPS": "reminders,calendar,notes",
         "REMINDERS_LISTS": "Reminders,Groceries",
@@ -198,8 +206,8 @@ VS Code uses `servers` and an explicit `type`:
 
 ```toml
 [mcp_servers.mac-organiser]
-command = "node"
-args = ["/Users/you/repos/mac-organiser-mcp/dist/index.js"]
+command = "npx"
+args = ["-y", "mac-organiser-mcp"]
 
 [mcp_servers.mac-organiser.env]
 MAC_ORGANISER_APPS = "reminders,calendar,notes"
